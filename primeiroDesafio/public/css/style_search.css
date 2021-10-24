@@ -1,0 +1,79 @@
+body{
+    background-color: rgb(245, 243, 240);
+    display: flex;
+    
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+/*Div principal*/
+#mainContent{
+display: flex;
+flex-direction: column;
+margin-top: 5%;
+width: 70%;
+height: auto;
+align-items: center;
+}
+
+h1{
+    font-size: 45px;
+}
+
+/*Barra de pesquisa*/
+#div-search-bar{
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 40px;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+input[type='text']{
+    width: 50%;
+    height: 25px;
+    border: 2px solid black;
+}
+
+::placeholder{
+    text-align: center;
+    color: rgba(0,0,0,0.7);
+}
+
+#div-button{
+    margin-top: 15px;
+}
+
+button{
+cursor: pointer;
+border: 2px solid black;
+width: 70px;
+background-color: transparent;
+}
+
+#msg-error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 70px;
+    border-radius: 15px;
+    background-color: rgba(255, 17, 0, 0.4);
+
+
+}
+
+#msg-error p{
+    font-size: 30px;
+}
+

@@ -1,0 +1,9 @@
+#business-name{
+    
+    text-decoration:none;
+    color: black;
+}
+#business-name:hover{
+    text-decoration: underline solid black 1px;
+    
+}
