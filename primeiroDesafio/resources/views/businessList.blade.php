@@ -8,11 +8,7 @@
     <link rel="stylesheet" href="./css/style_businessList.css">
     <title>Search Result</title>
 
-    <style>
-        .page-item{
-            display: inline-block;
-        }
-    </style>
+   
 </head>
 
 <body>

@@ -21,13 +21,11 @@ Route::get('/', function () {
 
 Route::get('/business',[EventController::class,'getParametersBusiness']);
 Route::get('/business/{titulo}',[EventController::class,'showBussiness']);
-
-Route::get('/admin',[EventController::class,'getData']);
-Route::post('/admin',[EventController::class,'getAdm']);
+Route::get('/admin',[EventController::class,'getData']);//pegar os dados salvos do adm
+Route::post('/admin',[EventController::class,'getAdm']);//consulta no banco
 Route::get('/register',[EventController::class,'getCategories']);
-
 Route::post('/register',[EventController::class,'setEmpresas']);
-
+Route::get('/logOut',[EventController::class,'logOut']);
 
 //Route::get('/{data}',[EventController::class,'getParametersSearch']);
 //Route::get('/empresas', [EventController::class,'urlPesquisa

@@ -7,3 +7,14 @@
     text-decoration: underline solid black 1px;
     
 }
+.page-item{
+    display: inline-block;
+    margin-left: 10px;
+   
+}
+.page-item a{
+    color: blue;
+}
+.page-item:active a{
+    text-decoration: none;
+}

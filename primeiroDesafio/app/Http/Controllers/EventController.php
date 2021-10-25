@@ -9,6 +9,7 @@ use App\Models\Empresas_categorias;
 use App\Models\Users;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cookie;
 
 class EventController extends Controller
 {
@@ -28,9 +29,8 @@ class EventController extends Controller
         $q = request('q');
 
         if ($q) {
-           
-            $business =DB::table('empresas_categorias')
-            ->join('empresas', 'empresas_categorias.id_empresa', '=', 'empresas.id')
+          
+            $business= Empresas_categorias::join('empresas', 'empresas_categorias.id_empresa', '=', 'empresas.id')
             ->join('categorias', 'empresas_categorias.id_categoria', '=', 'categorias.id')
             ->where('empresas.titulo', 'like', '%' . $q . '%')
             ->orWhere('empresas.endereco', 'like', '%' . $q . '%')
@@ -38,11 +38,9 @@ class EventController extends Controller
             ->orWhere('empresas.cidade', 'like', '%' . $q . '%')
             ->orWhere('categorias.categoria', 'like', '%' . $q . '%')
             ->orderBy('empresas.id','asc')
-                 ->distinct()
-                 ->select('empresas.id as id','empresas.titulo as titulo')
-                 ->simplePaginate(10);
-                 
-                 
+            ->distinct('empresas_categorias.id_empresa')
+            ->select('empresas.id as id','empresas.titulo as titulo')
+            ->paginate(1);     
                
             
          $business->withPath('/business?q='.$q);
@@ -86,7 +84,7 @@ class EventController extends Controller
 
         $categorias = Categorias::all();
 
-        return view('register', ['categorias' => $categorias]);
+        return view('register',['categorias'=>$categorias]);
     }
 
     //cadastrar empresas
@@ -148,7 +146,9 @@ class EventController extends Controller
         $password=$request->cookie('password');
 
         if($email && $password){
-            return redirect('/register');
+            $empresas=Empresas::paginate(1);
+            
+            return view('adm',['empresas'=>$empresas]);
         }else{
             return view('authAdm');
         }
@@ -165,15 +165,44 @@ class EventController extends Controller
         ->first();
         
         if($user){
-            $response=new Response('hello world!');
+            /*$response=new Response('hello world!');
             $response->withCookie(cookie()->forever('email',$email));
             $response->withCookie(cookie()->forever('password',$password));
-            
-            return redirect('register');
+            */
+            Cookie::queue('email', $email, 2628000);
+            Cookie::queue('password', $password, 2628000);
+            return redirect('admin');
 
         }else{
             return back()->with('msg','Email or password incorrects');
         }
 
+    }
+
+    public function getAdmRegister(Request $request){
+        
+        $email=$request->cookie('email');
+        $password=$request->cookie('password');
+
+        if($email && $password){
+          $this->getCategories();
+            
+        }else{
+            return view('authAdm');
+        }
+    }
+    public function logOut(Request $request){
+
+        $email=$request->cookie('email');
+        $password=$request->cookie('password');
+
+        if($email && $password){
+
+            $cookie1 = Cookie::forget('email');
+            $cookie2 = Cookie::forget('password');
+            return redirect('/')->withCookie($cookie1)->withCookie($cookie2);
+        }else{
+            return redirect('/');
+        }
     }
 }
