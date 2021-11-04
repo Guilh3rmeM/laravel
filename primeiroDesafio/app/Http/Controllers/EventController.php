@@ -40,13 +40,13 @@ class EventController extends Controller
             ->orderBy('empresas.id','asc')
             ->distinct('empresas_categorias.id_empresa')
             ->select('empresas.id as id','empresas.titulo as titulo')
-            ->paginate(1);     
+            ->paginate(10);     
                
             
          $business->withPath('/business?q='.$q);
 
             $array = $this->getCategoriesSearch($business);
-            return view('businessList', ['business' => $business, 'search' => $q, 'index' => 1, 'categorias' => $array]);
+            return view('businessList', ['business' => $business, 'search' => $q, 'categorias' => $array]);
         } else return redirect('/')->with('msg', 'Empty search!');
     }
 
@@ -146,7 +146,7 @@ class EventController extends Controller
         $password=$request->cookie('password');
 
         if($email && $password){
-            $empresas=Empresas::paginate(1);
+            $empresas=Empresas::paginate(10);
             
             return view('adm',['empresas'=>$empresas]);
         }else{

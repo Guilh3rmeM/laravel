@@ -17,8 +17,8 @@
 
         <h1>Results for "{{ $search }}"</h1>
         @if (count($business) > 0)
-            @foreach ($business as $item)
-                <h2><a href="/business/{{$item->titulo}}?q={{$item->id}}" id="business-name">{{ $index++ . '. ' . $item->titulo }}</a></h3>
+            @foreach ($business as $key=>$item)
+                <h2><a href="/business/{{$item->titulo}}?q={{$item->id}}" id="business-name">{{ ++$key . '. ' . $item->titulo }}</a></h3>
 
                 @foreach ($categorias as $categoria)
 

@@ -25,12 +25,10 @@
                     </form>  
                 </div>
             </div>
-            @php
-                $aux=1
-            @endphp
-           @foreach ($empresas as $empresa)
+          
+           @foreach ($empresas as $key=>$empresa)
            <div>
-            {{$aux++.'. '.$empresa->titulo;}}
+            {{++$key.'. '.$empresa->titulo;}}
            </div>
                
                <br><br>
